@@ -76,7 +76,10 @@ class DataGenerator:
 
 if __name__ == "__main__":
     import sys
-    api_url = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000"
+    import os
+    
+    # Get API URL from environment variable or command line argument
+    api_url = os.getenv("API_URL") or (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8000")
     generator = DataGenerator(api_url)
     generator.start(interval=0.5)
 

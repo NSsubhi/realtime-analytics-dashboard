@@ -69,11 +69,17 @@ A real-time analytics dashboard that processes streaming data using Apache Kafka
 
 ## Deployment to Railway
 
+### Quick Overview
+
+Deploy all three services (Backend, Frontend, Data Generator) to Railway as separate services.
+
+**📖 For detailed deployment instructions, see [RAILWAY_DEPLOY.md](RAILWAY_DEPLOY.md)**
+
 ### Prerequisites
 - GitHub account
 - Railway account (sign up at [railway.app](https://railway.app))
 
-### Steps
+### Quick Steps
 
 1. **Push to GitHub:**
    ```bash
@@ -85,25 +91,37 @@ A real-time analytics dashboard that processes streaming data using Apache Kafka
    git push -u origin main
    ```
 
-2. **Deploy on Railway:**
+2. **Deploy Backend Service (First Service):**
    - Go to [Railway Dashboard](https://railway.app/dashboard)
-   - Click "New Project"
-   - Select "Deploy from GitHub repo"
+   - Click "New Project" → "Deploy from GitHub repo"
    - Choose your repository
-   - Railway will automatically detect the Python project and use the `Procfile`
-   - The backend API will be deployed and assigned a public URL
+   - Railway will automatically use the `Procfile` for backend
+   - **Copy the backend URL** (e.g., `https://your-backend.railway.app`)
 
-3. **Configure Environment Variables (if needed):**
-   - In Railway project settings, add any required environment variables
-   - For this simplified version, no additional environment variables are required
+3. **Deploy Frontend Service (Second Service):**
+   - In the same Railway project, click "New Service"
+   - Select same GitHub repo
+   - **Start Command**: `streamlit run app/frontend.py --server.port $PORT --server.address 0.0.0.0 --server.headless true`
+   - **Environment Variable**: `API_URL` = your backend URL
 
-4. **Access Your API:**
-   - Railway will provide a public URL (e.g., `https://your-app.railway.app`)
-   - API Docs: `https://your-app.railway.app/docs`
-   - Health Check: `https://your-app.railway.app/health`
+4. **Deploy Data Generator Service (Third Service):**
+   - In the same Railway project, click "New Service" again
+   - Select same GitHub repo
+   - **Start Command**: `python app/data_generator/generator_simple.py`
+   - **Environment Variable**: `API_URL` = your backend URL
+
+### Service URLs
+
+After deployment:
+- **Backend**: `https://your-backend.railway.app` (API Docs: `/docs`)
+- **Frontend**: `https://your-frontend.railway.app` (Dashboard)
+- **Data Generator**: Runs in background (no public URL)
 
 ### Notes
-- The backend uses Railway's `PORT` environment variable automatically
+- All services use Railway's `PORT` environment variable automatically
+- Frontend and Data Generator need `API_URL` environment variable pointing to backend
 - The in-memory storage resets on each deployment restart
 - For production, consider adding a database (PostgreSQL) service on Railway
+
+**📖 See [RAILWAY_DEPLOY.md](RAILWAY_DEPLOY.md) for detailed step-by-step instructions**
 
