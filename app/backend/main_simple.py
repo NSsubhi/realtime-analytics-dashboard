@@ -116,7 +116,10 @@ async def get_analytics():
 
 if __name__ == "__main__":
     import uvicorn
-    port = find_free_port()
+    import os
+    
+    # Use Railway PORT or find free port for local development
+    port = int(os.getenv("PORT", find_free_port()))
     logger.info(f"Starting server on port {port}")
     logger.info(f"API docs: http://localhost:{port}/docs")
     uvicorn.run(app, host="0.0.0.0", port=port)
