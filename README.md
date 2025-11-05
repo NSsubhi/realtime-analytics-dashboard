@@ -1,5 +1,9 @@
 # Real-Time Analytics Dashboard with Kafka & Spark
 
+## 🚀 Live Demo
+
+**Live Dashboard**: [https://realtime-analytics-dashboard-production.up.railway.app/](https://realtime-analytics-dashboard-production.up.railway.app/)
+
 ## Overview
 A real-time analytics dashboard that processes streaming data using Apache Kafka and Apache Spark. Includes simplified in-memory version for easy deployment.
 
@@ -111,6 +115,8 @@ Deploy all three services (Backend, Frontend, Data Generator) to Railway as sepa
    - **Environment Variable**: `API_URL` = your backend URL
 
 ### Service URLs
+
+**Live Demo**: [https://realtime-analytics-dashboard-production.up.railway.app/](https://realtime-analytics-dashboard-production.up.railway.app/)
 
 After deployment:
 - **Backend**: `https://your-backend.railway.app` (API Docs: `/docs`)
